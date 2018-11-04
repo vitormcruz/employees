@@ -4,4 +4,4 @@ tests:
 
   script:
     - docker build -t vitormcruz/employees .
-    - docker run vitormcruz/employees --privileged=true
+    - docker run --privileged vitormcruz/employees 
