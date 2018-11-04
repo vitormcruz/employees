@@ -1,9 +1,10 @@
+image: gitlab/dind
 #before_script:
 #  -
 tests:
 
-  tags:
-    - docker
+  #tags:
+   # - docker
     
   script:
     - docker build -t vitormcruz/employees .
