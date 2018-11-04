@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM debian:9.5
 
 RUN apt-get update 
 RUN apt-get install curl -y
