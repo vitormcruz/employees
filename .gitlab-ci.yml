@@ -1,11 +1,7 @@
 image: gitlab/dind
-#before_script:
-#  -
+
 tests:
 
-  #tags:
-   # - docker
-    
   script:
     - docker build -t vitormcruz/employees .
     - docker run vitormcruz/employees
