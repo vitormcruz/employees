@@ -1,0 +1,6 @@
+#before_script:
+#  -
+tests:
+  script:
+    - docker build -t vitormcruz/employees .
+    - docker run vitormcruz/employees
