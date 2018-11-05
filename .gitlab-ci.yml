@@ -7,5 +7,5 @@ tests:
 
   script:
     - docker build --pull -t  $CI_REGISTRY/vitormcruz/employees .
-    - docker run $CI_REGISTR/vitormcruz/employees 
+    - docker run vitormcruz/employees 
     - docker push $CI_REGISTRY/vitormcruz/employees 
