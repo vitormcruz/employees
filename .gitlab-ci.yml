@@ -6,6 +6,7 @@ before_script:
 tests:
 
   script:
-    - docker build --pull -t  $CI_REGISTRY/vitormcruz/employees .
+    - docker build --pull -t vitormcruz/employees .
     - docker run vitormcruz/employees 
+    - docker tag vitormcruz/employees $CI_REGISTRY/vitormcruz/employees
     - docker push $CI_REGISTRY/vitormcruz/employees 
