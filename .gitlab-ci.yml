@@ -6,6 +6,6 @@ before_script:
 tests:
 
   script:
-    - docker build --pull -t vitormcruz/employees .
-    - docker run --privileged vitormcruz/employees 
-    - docker push $CI_REGISTRY
+    - docker build --pull -t  $CI_REGISTRY/vitormcruz/employees .
+    - docker run $CI_REGISTR/vitormcruz/employees 
+    - docker push $CI_REGISTRY/vitormcruz/employees 
