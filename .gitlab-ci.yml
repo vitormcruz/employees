@@ -1,7 +1,11 @@
 image: gitlab/dind
 
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
 tests:
 
   script:
-    - docker build -t vitormcruz/employees .
+    - docker build --pull -t vitormcruz/employees .
     - docker run --privileged vitormcruz/employees 
+    - docker push $CI_REGISTRY
