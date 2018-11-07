@@ -9,4 +9,6 @@ tests:
     - docker build --pull -t vitormcruz/employees .
     - docker run vitormcruz/employees 
     - docker tag vitormcruz/employees $CI_REGISTRY/vitormcruz/employees
+    - docker tag snapshot
+    - docker tag "$(git log -1 --pretty=%H)"
     - docker push $CI_REGISTRY/vitormcruz/employees 
