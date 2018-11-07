@@ -8,13 +8,9 @@ tests:
   variables: 
     SIMPLE_NAME: vitormcruz/employees
     FULL_NAME: $CI_REGISTRY/vitormcruz/employees
-    SNAPSHOT_TAG: snapshot
-
 
   script:
     - docker build --pull -t $SIMPLE_NAME .
     - docker run $SIMPLE_NAME 
-    - docker tag $SIMPLE_NAME $FULL_NAME:$SNAPSHOT_TAG
     - docker tag $SIMPLE_NAME $FULL_NAME:"$(git log -1 --pretty=%H)"
     - docker push $FULL_NAME:"$(git log -1 --pretty=%H)"
-    - docker push $FULL_NAME:$SNAPSHOT_TAG
