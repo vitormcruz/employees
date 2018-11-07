@@ -13,9 +13,9 @@ tests:
 
 
   script:
-    - docker build --pull -t SIMPLE_NAME .
-    - docker run SIMPLE_NAME 
-    - docker tag SIMPLE_NAME $SNAPSHOT_TAG
-    - docker tag SIMPLE_NAME FULL_NAME_AND_GIT_HASH
-    - docker push FULL_NAME_AND_GIT_HASH
+    - docker build --pull -t $SIMPLE_NAME .
+    - docker run $SIMPLE_NAME 
+    - docker tag $SIMPLE_NAME $SNAPSHOT_TAG
+    - docker tag $SIMPLE_NAME FULL_NAME_AND_GIT_HASH
+    - docker push $FULL_NAME_AND_GIT_HASH
     - docker push $SNAPSHOT_TAG
