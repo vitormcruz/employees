@@ -8,7 +8,7 @@ tests:
   variables: 
     SIMPLE_NAME: vitormcruz/employees
     FULL_NAME: $CI_REGISTRY/vitormcruz/employees
-    SNAPSHOT_TAG: $SIMPLE_NAME:snapshot
+    SNAPSHOT_TAG: $FULL_NAME:snapshot
 
 
   script:
