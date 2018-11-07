@@ -4,14 +4,18 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 tests:
+  
+  variables: 
+    - SIMPLE_NAME = vitormcruz/employees
+    - FULL_NAME = $CI_REGISTRY/vitormcruz/employees
+    - SNAPSHOT_TAG = $NAME:snapshot
+    - FULL_NAME_AND_GIT_HASH = $NAME:"$(git log -1 --pretty=%H)"
+
 
   script:
-    - docker build --pull -t vitormcruz/employees .
-    - docker run vitormcruz/employees 
-    - NAME = $CI_REGISTRY/vitormcruz/employees
-    - FULL_NAME = $NAME:"$(git log -1 --pretty=%H)"
-    - SNAPSHOT_TAG = $NAME:snapshot
-    - docker tag vitormcruz/employees $SNAPSHOT_TAG
-    - docker tag vitormcruz/employees $FULL_NAME
-    - docker push $FULL_NAME
+    - docker build --pull -t SIMPLE_NAME .
+    - docker run SIMPLE_NAME 
+    - docker tag SIMPLE_NAME $SNAPSHOT_TAG
+    - docker tag SIMPLE_NAME FULL_NAME_AND_GIT_HASH
+    - docker push FULL_NAME_AND_GIT_HASH
     - docker push $SNAPSHOT_TAG
