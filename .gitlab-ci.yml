@@ -6,10 +6,10 @@ before_script:
 tests:
   
   variables: 
-    - SIMPLE_NAME = vitormcruz/employees
-    - FULL_NAME = $CI_REGISTRY/vitormcruz/employees
-    - SNAPSHOT_TAG = $NAME:snapshot
-    - FULL_NAME_AND_GIT_HASH = $NAME:"$(git log -1 --pretty=%H)"
+    SIMPLE_NAME: vitormcruz/employees
+    FULL_NAME: $CI_REGISTRY/vitormcruz/employees
+    SNAPSHOT_TAG: $NAME:snapshot
+    FULL_NAME_AND_GIT_HASH: $NAME:"$(git log -1 --pretty=%H)"
 
 
   script:
