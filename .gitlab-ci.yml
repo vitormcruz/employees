@@ -8,7 +8,10 @@ tests:
   script:
     - docker build --pull -t vitormcruz/employees .
     - docker run vitormcruz/employees 
-    - docker tag vitormcruz/employees $CI_REGISTRY/vitormcruz/employees
-    - docker tag vitormcruz/employees snapshot
-    - docker tag vitormcruz/employees "$(git log -1 --pretty=%H)"
-    - docker push $CI_REGISTRY/vitormcruz/employees 
+    - NAME = $CI_REGISTRY/vitormcruz/employees
+    - FULL_NAME = $NAME:"$(git log -1 --pretty=%H)"
+    - SNAPSHOT_TAG = $NAME:snapshot
+    - docker tag vitormcruz/employees $SNAPSHOT_TAG
+    - docker tag vitormcruz/employees $FULL_NAME
+    - docker push $FULL_NAME
+    - docker push $SNAPSHOT_TAG
