@@ -8,8 +8,8 @@ tests:
   variables: 
     SIMPLE_NAME: vitormcruz/employees
     FULL_NAME: $CI_REGISTRY/vitormcruz/employees
-    SNAPSHOT_TAG: $NAME:snapshot
-    FULL_NAME_AND_GIT_HASH: $NAME:"$(git log -1 --pretty=%H)"
+    SNAPSHOT_TAG: $SIMPLE_NAME:snapshot
+    FULL_NAME_AND_GIT_HASH: $SIMPLE_NAME:"$(git log -1 --pretty=%H)"
 
 
   script:
