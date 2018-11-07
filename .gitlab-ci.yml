@@ -13,6 +13,10 @@ tests:
 
 
   script:
+    - echo $SIMPLE_NAME
+    - echo $FULL_NAME
+    - echo $SNAPSHOT_TAG
+    - echo $FULL_NAME_AND_GIT_HASH
     - docker build --pull -t $SIMPLE_NAME .
     - docker run $SIMPLE_NAME 
     - docker tag $SIMPLE_NAME $SNAPSHOT_TAG
