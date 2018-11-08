@@ -1,16 +1,38 @@
 image: gitlab/dind
 
+stages:
+  - build
+  - test
+  - publish-image
+  - deploy
+
+variables: 
+  IMAGE_BUILD_NAME: $CI_REGISTRY/vitormcruz/employees/building
+  IMAGE_NAME: $CI_REGISTRY/vitormcruz/employees
+
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-
-tests:
   
-  variables: 
-    SIMPLE_NAME: vitormcruz/employees
-    FULL_NAME: $CI_REGISTRY/vitormcruz/employees
-
+build:
+  stage: test
   script:
-    - docker build --pull -t $SIMPLE_NAME .
-    - docker run $SIMPLE_NAME 
-    - docker tag $SIMPLE_NAME $FULL_NAME:"$(git log -1 --pretty=%H)"
+    - docker build --pull -t $IMAGE_BUILD_NAME .
+    - docker run $IMAGE_BUILD_NAME
+    - docker push $IMAGE_BUILD_NAME
+
+push_snapshot_image:
+  stage: publish-image
+  except:
+    - /^v:.*$/
+    - tags
+  
+  script:
+    - docker pull $IMAGE_BUILD_NAME
+    - docker tag $IMAGE_BUILD_NAME $FULL_NAME:"$(git log -1 --pretty=%H)"
     - docker push $FULL_NAME:"$(git log -1 --pretty=%H)"
+    
+# push_release_image:
+#   only:
+#     - /^v:.*$/
+#     - tags
+  
