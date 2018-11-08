@@ -31,13 +31,13 @@ push_snapshot_image:
     - docker tag $IMAGE_BUILD_NAME $FULL_NAME:"$(git log -1 --pretty=%H)"
     - docker push $FULL_NAME:"$(git log -1 --pretty=%H)"
     
- push_release_image:
-   only:
-     - /^v:.*$/
-     - tags
-   stage: publish-image
-   
-   script:
+push_release_image:
+  stage: publish-image
+  only:
+    - /^v:.*$/
+    - tags
+    
+  script:
     - docker pull $IMAGE_BUILD_NAME
     - docker tag $IMAGE_BUILD_NAME $FULL_NAME:v1.0.0
     - docker push $FULL_NAME:v1.0.0
