@@ -47,7 +47,7 @@ push_snapshot_image:
 push_release_image:
   stage: publish-image
   only:
-    - /^v:.*$/
+    - /^v-.*$/
     - tags
     
   script:
