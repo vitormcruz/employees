@@ -1,8 +1,10 @@
-FROM herbysk/pharo:61_64
+#FROM herbysk/pharo:61_64
+FROM pharo/image:61
 
 #RUN apt-get update 
 #RUN apt-get install curl -y
 #RUN apt-get install unzip -y
 #RUN mkdir pharo && cd pharo && curl https://get.pharo.org/64/61+vm | bash && ls -la
 
-CMD ["pharo", "/opt/pharo/Pharo.image", "eval", "'Hello World!'"] 
+#CMD ["pharo", "/opt/pharo/Pharo.image", "eval", "'Hello World!'"] 
+CMD ["eval", "'Hello World!'"] 
