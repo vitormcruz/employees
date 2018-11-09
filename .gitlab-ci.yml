@@ -31,27 +31,27 @@ test_image:
   
   script:
     - docker load < $IMAGE_BUILD_NAME.tar
-    - docker --cap-add SYS_NICE run $IMAGE_BUILD_NAME
+    - docker run --cap-add SYS_NICE $IMAGE_BUILD_NAME
 
-# push_snapshot_image:
-#   stage: publish-image
-#   except:
-#     - /^v:.*$/
-#     - tags
+push_snapshot_image:
+  stage: publish-image
+  except:
+    - /^v:.*$/
+    - tags
   
-#   script:
-#     - docker pull $IMAGE_BUILD_NAME
-#     - docker tag $IMAGE_BUILD_NAME $FULL_NAME:"$(git log -1 --pretty=%H)"
-#     - docker push $FULL_NAME:"$(git log -1 --pretty=%H)"
+  script:
+    - docker load < $IMAGE_BUILD_NAME.tar
+    - docker tag $IMAGE_BUILD_NAME $IMAGE_NAME:"$(git log -1 --pretty=%H)"
+    - docker push $IMAGE_NAME:"$(git log -1 --pretty=%H)"
     
-# push_release_image:
-#   stage: publish-image
-#   only:
-#     - /^v:.*$/
-#     - tags
+push_release_image:
+  stage: publish-image
+  only:
+    - /^v:.*$/
+    - tags
     
-#   script:
-#     - docker pull $IMAGE_BUILD_NAME
-#     - docker tag $IMAGE_BUILD_NAME $FULL_NAME:v1.0.0
-#     - docker push $FULL_NAME:v1.0.0
+  script:
+    - docker load < $IMAGE_BUILD_NAME.tar
+    - docker tag $IMAGE_BUILD_NAME $IMAGE_NAME:v1.0.0
+    - docker push $IMAGE_NAME:v1.0.0
   
