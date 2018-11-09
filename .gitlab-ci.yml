@@ -30,7 +30,6 @@ test_image:
   stage: test
   
   script:
-    - unzip $IMAGE_BUILD_NAME.zip
     - docker load $IMAGE_BUILD_NAME.tar
     - docker run $IMAGE_BUILD_NAME
 
