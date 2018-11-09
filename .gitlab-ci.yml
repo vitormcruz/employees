@@ -7,7 +7,7 @@ stages:
   - deploy
 
 variables: 
-  IMAGE_BUILD_NAME: builtImage
+  IMAGE_BUILD_NAME: vitormcruz/employees:$CI_JOB_ID
   IMAGE_NAME: $CI_REGISTRY/vitormcruz/employees
 
 before_script:
@@ -17,7 +17,7 @@ build_image:
   stage: build
   
   script:
-    - docker build --pull -t $IMAGE_BUILD_NAME .
+    - docker build --pull -t $IMAGE_NAME .
     - docker save $IMAGE_BUILD_NAME > $IMAGE_BUILD_NAME.tar
     
   artifacts:
