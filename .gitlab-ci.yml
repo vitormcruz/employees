@@ -7,38 +7,52 @@ stages:
   - deploy
 
 variables: 
-  IMAGE_BUILD_NAME: $CI_REGISTRY/vitormcruz/employees/building
+  IMAGE_BUILD_NAME: builtImage
   IMAGE_NAME: $CI_REGISTRY/vitormcruz/employees
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   
-build:
-  stage: test
-  script:
-    - docker build --pull -t $IMAGE_BUILD_NAME .
-    - docker run $IMAGE_BUILD_NAME
-    - docker push $IMAGE_BUILD_NAME
-
-push_snapshot_image:
-  stage: publish-image
-  except:
-    - /^v:.*$/
-    - tags
+build_image:
+  stage: build
   
   script:
-    - docker pull $IMAGE_BUILD_NAME
-    - docker tag $IMAGE_BUILD_NAME $FULL_NAME:"$(git log -1 --pretty=%H)"
-    - docker push $FULL_NAME:"$(git log -1 --pretty=%H)"
+    - docker build --pull -t $IMAGE_BUILD_NAME .
+    - docker save $IMAGE_BUILD_NAME > $IMAGE_BUILD_NAME.tar
     
-push_release_image:
-  stage: publish-image
-  only:
-    - /^v:.*$/
-    - tags
-    
+  artifact:
+    name: $IMAGE_BUILD_NAME
+    expire_in: 1 hour
+    paths:
+      - $IMAGE_BUILD_NAME.tar
+      
+test_image:
+  stage: test
+  
   script:
-    - docker pull $IMAGE_BUILD_NAME
-    - docker tag $IMAGE_BUILD_NAME $FULL_NAME:v1.0.0
-    - docker push $FULL_NAME:v1.0.0
+    - unzip $IMAGE_BUILD_NAME.zip
+    - docker load $IMAGE_BUILD_NAME.tar
+    - docker run $IMAGE_BUILD_NAME
+
+# push_snapshot_image:
+#   stage: publish-image
+#   except:
+#     - /^v:.*$/
+#     - tags
+  
+#   script:
+#     - docker pull $IMAGE_BUILD_NAME
+#     - docker tag $IMAGE_BUILD_NAME $FULL_NAME:"$(git log -1 --pretty=%H)"
+#     - docker push $FULL_NAME:"$(git log -1 --pretty=%H)"
+    
+# push_release_image:
+#   stage: publish-image
+#   only:
+#     - /^v:.*$/
+#     - tags
+    
+#   script:
+#     - docker pull $IMAGE_BUILD_NAME
+#     - docker tag $IMAGE_BUILD_NAME $FULL_NAME:v1.0.0
+#     - docker push $FULL_NAME:v1.0.0
   
