@@ -30,7 +30,7 @@ test_image:
   stage: test
   
   script:
-    - docker load $IMAGE_BUILD_NAME.tar
+    - docker load < $IMAGE_BUILD_NAME.tar
     - docker run $IMAGE_BUILD_NAME
 
 # push_snapshot_image:
