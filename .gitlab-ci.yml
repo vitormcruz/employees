@@ -31,7 +31,7 @@ test_image:
   
   script:
     - docker load < $IMAGE_BUILD_NAME.tar
-    - docker run $IMAGE_BUILD_NAME
+    - docker --cap-add SYS_NICE run $IMAGE_BUILD_NAME
 
 # push_snapshot_image:
 #   stage: publish-image
