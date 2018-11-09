@@ -20,7 +20,7 @@ build_image:
     - docker build --pull -t $IMAGE_BUILD_NAME .
     - docker save $IMAGE_BUILD_NAME > $IMAGE_BUILD_NAME.tar
     
-  artifact:
+  artifacts:
     name: $IMAGE_BUILD_NAME
     expire_in: 1 hour
     paths:
