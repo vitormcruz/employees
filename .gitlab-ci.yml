@@ -7,7 +7,7 @@ stages:
   - deploy
 
 variables: 
-  IMAGE_BUILD_NAME: vitormcruz/employees:$CI_JOB_ID
+  IMAGE_BUILD_NAME: vitormcruz_employees_$CI_JOB_ID
   IMAGE_NAME: $CI_REGISTRY/vitormcruz/employees
 
 before_script:
