@@ -30,9 +30,11 @@ BaselineOfEmployees >> baseline: spec [
 														  className: 'ConfigurationOfMagritte3'; 
 														  versionString: '3.5.1';
 														  loads: #(Seaside Core) ];
-												
- 			  group: 'default' with: #('core' 'tests');
-			  group: 'core' with: #('Empoloyees')
+													
+			  package: 'Employees';
+													
+ 			  group: 'default' with: #('core');
+			  group: 'core' with: #('Employees')
 	].
 
 
