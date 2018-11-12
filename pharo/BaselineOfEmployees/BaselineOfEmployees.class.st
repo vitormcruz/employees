@@ -31,7 +31,7 @@ BaselineOfEmployees >> baseline: spec [
 														  versionString: '3.5.1';
 														  loads: #(Seaside Core) ];
 													
-			  package: 'Employees';
+			  package: 'Employees' with: [ spec requires: #('Magritte3' 'LangExtensions' 'BootstrapMagritte' ''). ];
 													
  			  group: 'default' with: #('core');
 			  group: 'core' with: #('Employees')
