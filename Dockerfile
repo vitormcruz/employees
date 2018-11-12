@@ -3,9 +3,8 @@ FROM herbysk/pharo:61_64 as build_pharo_image
 
 RUN mkdir /opt/pharo/employeesSource
 COPY . /opt/pharo/employeesSource
-RUN pharo /opt/pharo/Pharo.image get GitFileTree
-#RUN pharo /opt/pharo/Pharo.image eval "Metacello new baseline: 'Employees'; repository: 'filetree:///opt/pharo/employeesSource/pharo/'; load: #(core)"
-#RUN pharo /opt/pharo/Pharo.image config 'gitfiletree:////opt/pharo/employeesSource/pharo/' BaselineOfEmployee --load --group=core
+#RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees'; repository: 'gitlocal:///opt/pharo/employeesSource/pharo/'; load: #(core)"
+RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees'; repository: 'https://gitlab.com/vitormcruz/employees.git'; load: #(core)"
 
 FROM herbysk/pharo:61_64
 
