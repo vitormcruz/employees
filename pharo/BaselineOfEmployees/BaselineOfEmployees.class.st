@@ -12,9 +12,6 @@ BaselineOfEmployees >> baseline: spec [
 	spec for: #'common' do: [
 		spec blessing: #'baseline';
 		     repository: 'gitlab://vitormcruz/employees:master/pharo/';
-		
-		     baseline: 'LangExtensions' with: [ spec repository: 'gitlab://vitormcruz/sandbox-st:develop/pharo/'; 
-															     loads: #(core) ];
 															
 		     project: 'Bootstrap' with: [ spec repository: 'http://smalltalkhub.com/mc/TorstenBergmann/Bootstrap/main/'; 
 														  className: 'ConfigurationOfBootstrap'; 
