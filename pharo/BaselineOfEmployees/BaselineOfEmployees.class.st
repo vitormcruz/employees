@@ -11,9 +11,9 @@ BaselineOfEmployees >> baseline: spec [
         
 	spec for: #'common' do: [
 		spec blessing: #'baseline';
-		     repository: 'https://gitlab.com/vitormcruz/eployees.git';
+		     repository: 'gitlab://vitormcruz/employees:master/pharo/';
 		
-		     baseline: 'LangExtensions' with: [ spec repository: 'https://gitlab.com/vitormcruz/sandbox-st:develop'; 
+		     baseline: 'LangExtensions' with: [ spec repository: 'gitlab://vitormcruz/sandbox-st:develop/pharo/'; 
 															     loads: #(core) ];
 															
 		     project: 'Bootstrap' with: [ spec repository: 'http://smalltalkhub.com/mc/TorstenBergmann/Bootstrap/main/'; 
@@ -31,7 +31,7 @@ BaselineOfEmployees >> baseline: spec [
 														  versionString: '3.5.1';
 														  loads: #(Seaside Core) ];
 													
-			  package: 'Employees' with: [ spec requires: #('Magritte3' 'LangExtensions' 'BootstrapMagritte'). ];
+			  package: 'Employees' with: [ spec requires: #('Magritte3' 'LangExtensions' 'BootstrapMagritte' ''). ];
 													
  			  group: 'default' with: #('core');
 			  group: 'core' with: #('Employees')
