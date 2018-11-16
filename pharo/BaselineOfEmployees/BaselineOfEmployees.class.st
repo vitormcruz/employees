@@ -13,7 +13,8 @@ BaselineOfEmployees >> baseline: spec [
 		spec blessing: #'baseline';
 		     repository: 'gitlab://vitormcruz/employees:master/pharo/';
 															
-		     baseline: 'Magritte3' with: [ spec repository: 'https://github.com/magritte-metamodel/magritte:v3.5.3'; 
+		     project: 'Magritte3' with: [ spec repository: 'https://github.com/magritte-metamodel/magritte:v3.5.3'; 
+		                                  className: 'ConfigurationOfMagritte3';
 														  loads: #(Seaside Core) ];
 													
 			  package: 'Employees' with: [ spec requires: #('Magritte3'). ];
