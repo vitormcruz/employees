@@ -12,12 +12,12 @@ BaselineOfEmployees >> baseline: spec [
 	spec for: #'common' do: [
 		spec blessing: #'baseline';
 		     repository: 'gitlab://vitormcruz/employees:master/pharo/';
-															
-		     baseline: 'Magritte3' with: [ spec repository: 'github://magritte-metamodel/magritte:master/source'; 
-		                                       className: 'BaselineOfMagritte';
+
+        	  baseline: 'Seaside3' with: [ spec repository: 'github://SeasideSt/Seaside/repository' ];
+		     baseline: 'Magritte' with: [ spec repository: 'github://magritte-metamodel/magritte:v3.5.3/source'; 
 													     loads: #(Seaside Core) ];
 													
-			  package: 'Employees' with: [ spec requires: #('Magritte3'). ];
+			  package: 'Employees' with: [ spec requires: #('Seaside3' 'Magritte'). ];
 													
  			  group: 'default' with: #('core');
 			  group: 'core' with: #('Employees')
