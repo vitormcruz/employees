@@ -1,4 +1,4 @@
-FROM herbysk/pharo:61_64 as buildpharoimage
+FROM herbysk/pharo:61_64
 #FROM pharo/image:61
 
 RUN mkdir /opt/pharo/employeesSource
@@ -14,6 +14,6 @@ RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees
 FROM herbysk/pharo:61_64
 
 RUN rm /opt/pharo/Pharo.image
-COPY --from=buildpharoimage /opt/pharo/Pharo.image /opt/pharo/
+COPY --from=1 /opt/pharo/Pharo.image /opt/pharo/
 
 CMD ["pharo", "/opt/pharo/Pharo.image", "eval", "'Hello World!'"] 
