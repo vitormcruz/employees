@@ -3,8 +3,13 @@ FROM herbysk/pharo:61_64 as build_pharo_image
 
 RUN mkdir /opt/pharo/employeesSource
 COPY . /opt/pharo/employeesSource
-#RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees'; repository: 'gitlocal:///opt/pharo/employeesSource/pharo/'; load: #(core)"
-RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees'; repository: 'https://gitlab.com/vitormcruz/employees.git'; load: #(core)"
+RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees'; \
+															repository: 'gitlocal:///opt/pharo/employeesSource/pharo/'; \
+															ignoreImage; \
+															onConflict: [ :ex | ex useIncoming ]; \
+															onWarning: [ :ex | Transcript crShow: ex ]; \
+															silently; \
+															load: #(core)."
 
 FROM herbysk/pharo:61_64
 
