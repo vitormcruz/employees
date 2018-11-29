@@ -44,8 +44,8 @@ push_snapshot_image:
   
   script:
     - docker load < $IMAGE_BUILD_NAME.tar
-    - docker tag $IMAGE_BUILD_NAME $IMAGE_NAME:"$(git log -1 --pretty=%H)"
-    - docker push $IMAGE_NAME:"$(git log -1 --pretty=%H)"
+    - docker tag $IMAGE_BUILD_NAME $IMAGE_NAME:$CI_COMMIT_SHA
+    - docker push $IMAGE_NAME:$CI_COMMIT_SHA
     
 push_release_image:
   stage: publish-image
@@ -55,6 +55,6 @@ push_release_image:
     
   script:
     - docker load < $IMAGE_BUILD_NAME.tar
-    - docker tag $IMAGE_BUILD_NAME $IMAGE_NAME:v1.0.0
-    - docker push $IMAGE_NAME:v1.0.0
+    - docker tag $IMAGE_BUILD_NAME $IMAGE_NAME:$CI_COMMIT_TAG
+    - docker push $IMAGE_NAME:$CI_COMMIT_TAG
   
