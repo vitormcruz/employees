@@ -17,7 +17,7 @@ build_image:
   stage: build
   
   script:
-    - docker build --pull -t $IMAGE_BUILD_NAME .
+    - docker build -t $IMAGE_BUILD_NAME .
     - docker save $IMAGE_BUILD_NAME > $IMAGE_BUILD_NAME.tar
     
   artifacts:
