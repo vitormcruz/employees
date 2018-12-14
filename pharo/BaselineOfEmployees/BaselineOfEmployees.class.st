@@ -11,9 +11,8 @@ BaselineOfEmployees >> baseline: spec [
         
 	spec for: #'common' do: [
 		spec blessing: #'baseline';
-		     repository: 'gitlab://vitormcruz/employees:master/pharo/';
 
-        	  baseline: 'Seaside3' with: [ spec repository: 'github://SeasideSt/Seaside:3.2.4/repository' ];
+        	  baseline: 'Seaside3' with: [ spec repository: 'github://SeasideSt/Seaside:v3.2.2/repository' ];
 		     baseline: 'Magritte' with: [ spec repository: 'github://magritte-metamodel/magritte:v3.5.3/source'; 
 													     loads: #(Seaside Core) ];
 													

@@ -3,8 +3,10 @@ FROM herbysk/pharo:61_64 as build_pharo_image
 
 RUN mkdir /opt/pharo/employeesSource
 COPY . /opt/pharo/employeesSource
-RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees'; \
-															repository: 'gitlocal:///opt/pharo/employeesSource/pharo/'; \
+RUN pharo /opt/pharo/Pharo.image eval --save "Metacello new  repository: 'github://svenvc/zinc:v3.0.1/repository';  baseline: 'ZincHTTPComponents';  load; lock. \
+
+     Metacello new baseline: 'Employees'; \
+															repository: 'tonel:///opt/pharo/employeesSource/pharo/'; \
 															ignoreImage; \
 															onConflict: [ :ex | ex useIncoming ]; \
 															onWarning: [ :ex | Transcript crShow: ex ]; \
