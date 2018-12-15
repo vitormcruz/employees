@@ -1,19 +1,37 @@
-FROM herbysk/pharo:61_64 as build_pharo_image
-#FROM pharo/image:61
+FROM ubuntu:16.04 as load_pharo
 
-RUN mkdir /opt/pharo/employeesSource
-COPY . /opt/pharo/employeesSource
-RUN pharo /opt/pharo/Pharo.image eval --save " Metacello new baseline: 'Employees'; \
-     repository: 'tonel:///opt/pharo/employeesSource/pharo/'; \
+RUN apt-get update
+RUN apt-get install curl unzip -y
+
+#Pharo Dependencies
+RUN apt-get install apt-utils -y 
+RUN apt-get install ca-certificates libcairo2 libc6 libfreetype6 libssl1.0.0 -y --no-install-recommends 
+
+#Download Pharo
+RUN cd opt && mkdir pharo && cd pharo && curl https://get.pharo.org/64/61+vm | bash
+RUN rm -rf /opt/pharo/pharo-ui
+
+#Loading app
+RUN mkdir /home/employeesSource
+COPY . /home/employeesSource/
+
+RUN ./opt/pharo/pharo /opt/pharo/Pharo.image eval --save "Metacello new baseline: 'Employees'; \
+     repository: 'tonel:///home/employeesSource/pharo/'; \
      ignoreImage; \
      onConflict: [ :ex | ex useIncoming ]; \
      onWarning: [ :ex | Transcript crShow: ex ]; \
      silently; \
-     load: #(core)."
+     load: #(core)." 
 
-FROM herbysk/pharo:61_64
+FROM ubuntu:16.04 as build_employees_minimal_image
 
-RUN rm /opt/pharo/Pharo.image
-COPY --from=build_pharo_image /opt/pharo/Pharo.image /opt/pharo/
+RUN apt-get update
 
-CMD ["pharo", "/opt/pharo/Pharo.image", "--no-quit"] 
+#Pharo Dependencies
+RUN apt-get install apt-utils -y
+RUN apt-get install ca-certificates libcairo2 libc6 libfreetype6 libssl1.0.0 -y --no-install-recommends
+
+RUN mkdir /opt/pharo/
+COPY --from=load_pharo /opt/pharo/ /opt/pharo/
+
+CMD ["./opt/pharo/pharo", "/opt/pharo/Pharo.image", "--no-quit"] 
