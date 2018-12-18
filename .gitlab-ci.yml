@@ -34,7 +34,7 @@ test_image:
   
   script:
     - docker load < $IMAGE_BUILD_NAME.tar
-    - docker run --cap-add SYS_NICE --entrypoint bash employees:latest ./opt/pharo/pharo /opt/pharo/Pharo.image eval "1=1"
+    - docker run --cap-add SYS_NICE --entrypoint bash $IMAGE_BUILD_NAME ./opt/pharo/pharo /opt/pharo/Pharo.image eval "1=1"
 
 push_snapshot_image:
   stage: publish-image
