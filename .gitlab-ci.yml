@@ -1,4 +1,4 @@
-image: docker:18
+image: docker:186
 
 services:
   - docker:dind
@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - integration-test
   - publish-image
   - deploy
 
@@ -35,6 +36,15 @@ test_image:
   script:
     - docker load < $IMAGE_BUILD_NAME.tar
     - docker run --cap-add SYS_NICE --entrypoint bash $IMAGE_BUILD_NAME ./opt/pharo/pharo /opt/pharo/Pharo.image eval "1=1"
+
+test_app:
+  stage: integration-test
+  script:
+    - docker load < $IMAGE_BUILD_NAME.tar 
+    - export $APP_IMAGE_NAME
+    - docker-compose up &
+    - wget --server-response localhost:8080/employees
+    - docker-compose stop &
 
 push_snapshot_image:
   stage: publish-image
