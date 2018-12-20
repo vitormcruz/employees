@@ -6,7 +6,6 @@ services:
 stages:
   - build
   - test
-  - integration-test
   - publish-image
   - deploy
 
@@ -38,8 +37,11 @@ test_image:
     - docker run --cap-add SYS_NICE --entrypoint bash $IMAGE_BUILD_NAME ./opt/pharo/pharo /opt/pharo/Pharo.image eval "1=1"
 
 test_app:
-  image: docker/compose:1.23.2
-  stage: integration-test
+  image:
+    name: docker/compose:1.23.2
+    entrypoint: ["/bin/sh", "-c"]
+    
+  stage: test
   script:
     - docker load < $IMAGE_BUILD_NAME.tar 
     - export $APP_IMAGE_NAME
