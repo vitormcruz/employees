@@ -1,4 +1,4 @@
-image: docker/compose:1.23.2
+image: docker:18
 
 services:
   - docker:dind
@@ -38,6 +38,7 @@ test_image:
     - docker run --cap-add SYS_NICE --entrypoint bash $IMAGE_BUILD_NAME ./opt/pharo/pharo /opt/pharo/Pharo.image eval "1=1"
 
 test_app:
+  image: docker/compose:1.23.2
   stage: integration-test
   script:
     - docker load < $IMAGE_BUILD_NAME.tar 
