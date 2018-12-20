@@ -1,9 +1,9 @@
 image:
-  name: docker/compose:1.23.2
-  entrypoint: ["/bin/sh", "-c"]
+  name: docker
 
 services:
   - docker:dind
+  - docker/compose:1.23.2
 
 stages:
   - build
