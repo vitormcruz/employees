@@ -41,9 +41,6 @@ test_app:
   image:
     name: docker/compose:1.23.2
     entrypoint: ["/bin/sh", "-c"]
-    environment: 
-      DOCKER_HOST: tcp://docker:2375/ 
-      DOCKER_DRIVER: overlay2
     
   stage: test
   script:
@@ -52,6 +49,9 @@ test_app:
     - docker-compose up &
     - wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 10 --server-response localhost:8080/employees
     - docker-compose stop &
+  environment: 
+    DOCKER_HOST: tcp://docker:2375/ 
+    DOCKER_DRIVER: overlay2
 
 push_snapshot_image:
   stage: publish-image
