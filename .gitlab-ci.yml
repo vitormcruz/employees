@@ -3,7 +3,6 @@ image:
 
 services:
   - docker:dind
-  - docker/compose:1.23.2
 
 stages:
   - build
@@ -39,12 +38,19 @@ test_image:
     - docker run --cap-add SYS_NICE --entrypoint bash $IMAGE_BUILD_NAME ./opt/pharo/pharo /opt/pharo/Pharo.image eval "1=1"
 
 test_app:
+  image:
+    name: docker/compose:1.23.2
+    entrypoint: ["/bin/sh", "-c"]
+    environment: 
+      DOCKER_HOST: tcp://docker:2375/ 
+      DOCKER_DRIVER: overlay2
+    
   stage: test
   script:
     - docker load < $IMAGE_BUILD_NAME.tar 
     - export $APP_IMAGE_NAME
     - docker-compose up &
-    - wget --server-response localhost:8080/employees
+    - wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 10 --server-response localhost:8080/employees
     - docker-compose stop &
 
 push_snapshot_image:
