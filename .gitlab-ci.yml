@@ -43,9 +43,9 @@ test_app:
     
   stage: test
   script:
-    - docker load < $IMAGE_BUILD_NAME.tar 
+    - sudo docker load < $IMAGE_BUILD_NAME.tar 
     - export $APP_IMAGE_NAME
-    - docker-compose up &
+    - sudo -E docker-compose up &
     - wget --server-response localhost:8080/employees
     - docker-compose stop &
 
