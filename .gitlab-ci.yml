@@ -1,4 +1,5 @@
-image: docker/compose:1.23.2
+image:
+  name: docker
 
 services:
   - docker:dind
@@ -6,7 +7,6 @@ services:
 stages:
   - build
   - test
-  - integration-test
   - publish-image
   - deploy
 
@@ -38,13 +38,23 @@ test_image:
     - docker run --cap-add SYS_NICE --entrypoint bash $IMAGE_BUILD_NAME ./opt/pharo/pharo /opt/pharo/Pharo.image eval "1=1"
 
 test_app:
-  stage: integration-test
+  image:
+    name: docker/compose:1.23.2
+    entrypoint: ["/bin/sh", "-c"]
+    
+  stage: test
   script:
+    - apk update
+    - apk add wget
     - docker load < $IMAGE_BUILD_NAME.tar 
-    - export $APP_IMAGE_NAME
+    - export APP_IMAGE_NAME=$IMAGE_BUILD_NAME
     - docker-compose up &
-    - wget --server-response localhost:8080/employees
+    - sleep 120
+    - wget --retry-connrefused --waitretry=10 --read-timeout=20 --timeout=15 -t 20 --server-response localhost:8080/employees
     - docker-compose stop &
+  variables: 
+    DOCKER_HOST: tcp://docker:2375/ 
+    DOCKER_DRIVER: overlay2
 
 push_snapshot_image:
   stage: publish-image
