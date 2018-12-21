@@ -44,12 +44,14 @@ test_app:
     
   stage: test
   script:
+    - ls -la
     - apk update
     - apk add wget
     - docker load < $IMAGE_BUILD_NAME.tar 
     - export $APP_IMAGE_NAME
     - docker-compose up &
-    - wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 10 --server-response localhost:8080/employees
+    - sleep 60
+    - wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 20 --server-response localhost:8080/employees
     - docker-compose stop &
   variables: 
     DOCKER_HOST: tcp://docker:2375/ 
