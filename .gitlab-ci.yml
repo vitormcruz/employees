@@ -50,7 +50,7 @@ test_app:
     - export APP_IMAGE_NAME=$IMAGE_BUILD_NAME
     - docker-compose up &
     - sleep 120
-    - wget --retry-connrefused --waitretry=10 --read-timeout=20 --timeout=15 -t 20 --server-response localhost:8080/employees
+    - wget --retry-connrefused --waitretry=10 --read-timeout=20 --timeout=15 -t 20 --server-response localhost:9200/
     - docker-compose stop &
   variables: 
     DOCKER_HOST: tcp://docker:2375/ 
