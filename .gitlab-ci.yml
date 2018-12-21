@@ -44,8 +44,8 @@ test_app:
     
   stage: test
   script:
-    - apt-get update
-    - apt-get install wget -y
+    - apk update
+    - apk add wget
     - docker load < $IMAGE_BUILD_NAME.tar 
     - export $APP_IMAGE_NAME
     - docker-compose up &
