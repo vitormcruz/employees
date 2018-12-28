@@ -20,7 +20,7 @@ BaselineOfEmployees >> baseline: spec [
 			  package: 'Employees-Tests' with: [ spec requires: #('Employees-Core'). ];
 			  package: 'Employees-Persistente-Voyage' with: [ spec requires: #('Employees-Core'). ];
 			  package: 'Employees-Seaside' with: [ spec requires: #('Employees-Core'). ];
-			  package: 'Employees-Config' with: [ spec requires: #('Employees-Persistente-Voyage' Employees-Config). ];
+			  package: 'Employees-Config' with: [ spec requires: #('Employees-Persistente-Voyage' 'Employees-Seaside'). ];
 													
  			  group: 'default' with: #('app');
 			  group: 'core' with: #('Employees-Core');
