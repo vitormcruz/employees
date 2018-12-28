@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'employeeForm'
 	],
-	#category : #'Employees-seaside'
+	#category : #'Employees-Seaside'
 }
 
 { #category : #actions }

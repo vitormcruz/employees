@@ -1,1 +1,1 @@
-Package { #name : #'Employees-core' }
+Package { #name : #'Employees-Core' }

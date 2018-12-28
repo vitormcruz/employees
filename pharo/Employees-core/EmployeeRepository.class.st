@@ -1,5 +1,5 @@
 Class {
 	#name : #EmployeeRepository,
 	#superclass : #BaselineOf,
-	#category : #'Employees-core'
+	#category : #'Employees-Core'
 }

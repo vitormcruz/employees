@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'name'
 	],
-	#category : #'Employees-core'
+	#category : #'Employees-Core'
 }
 
 { #category : #accessing }
