@@ -4,3 +4,9 @@ Extension { #name : #Employee }
 Employee class >> isVoyageRoot [
    ^ true
 ]
+
+{ #category : #'*Employees-Persistente-Voyage' }
+Employee >> rootVoyage [
+
+	^ true.
+]
