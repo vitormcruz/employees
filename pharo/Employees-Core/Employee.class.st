@@ -14,6 +14,13 @@ Employee >> description [
 	^ MAStringDescription new accessor: #name; required: true.
 ]
 
+{ #category : #testing }
+Employee >> isValid [ 
+
+	name ifNil: [ ^ false ].
+	^ name isNotEmpty.
+]
+
 { #category : #accessing }
 Employee >> name [
 	^ name
@@ -21,5 +28,6 @@ Employee >> name [
 
 { #category : #accessing }
 Employee >> name: anObject [
+	
 	name := anObject
 ]
