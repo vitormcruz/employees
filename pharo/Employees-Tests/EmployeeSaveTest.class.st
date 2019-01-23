@@ -1,17 +1,22 @@
 Class {
 	#name : #EmployeeSaveTest,
 	#superclass : #TestCase,
+	#traits : 'TEmployeesTest',
+	#classTraits : 'TEmployeesTest classTrait',
 	#category : #'Employees-Tests'
 }
 
-{ #category : #initialization }
+{ #category : #running }
 EmployeeSaveTest >> setUp [
 	
-	EmployeesServiceLocator employeeRepository removeAll: Employee.
+	super setUp.
+	employeeRepository removeAll: Employee.
 ]
 
 { #category : #running }
 EmployeeSaveTest >> tearDown [ 
+
+	super tearDown.
 	self setUp.
 ]
 
@@ -19,8 +24,8 @@ EmployeeSaveTest >> tearDown [
 EmployeeSaveTest >> testSaveLotsOfEmployees [
 
 	1000 timesRepeat: [ 
-		EmployeesServiceLocator employeeRepository save: (EmployeeMother newRandom).
+		employeeRepository save: (EmployeeMother newRandom).
    ].
 
-   self assert: (EmployeesServiceLocator employeeRepository selectAll: Employee) size equals: 1000.
+   self assert: (employeeRepository selectAll: Employee) size equals: 1000.
 ]

@@ -7,13 +7,6 @@ Class {
 	#category : #'Employees-Seaside'
 }
 
-{ #category : #actions }
-EmployeePage class >> initialize [
-
-	WAAdmin register: self asApplicationAt: 'employees'.
-	ZnZincServerAdaptor startOn: 8080.
-]
-
 { #category : #initialization }
 EmployeePage >> children [
 
